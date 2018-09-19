@@ -1,0 +1,174 @@
+SQL语言分类：
+	DDL:数据定义语言，定义库、表、列  -->CREATE  ALTER  DROP
+	DML：数据操作语言，定义数据库记录  -->INSERT  UPDATE  DELETE
+	DCL：数据控制语言，定义访问权限与安全级别  -->GRANT  DENY
+	DQL:数据查询语言，用来查询数据  -->SELECT
+
+几种常见的数据库连接：
+-------------------------------oracle-----------------------------
+驱动：oracle.jdbc.driver.OracleDriver
+URL：jdbc:oracle:thin:@machine_name:port:dbname
+注：machine_name：数据库所在的机器的名称；
+      port：端口号，默认是1521
+
+-------------------------------mysql-----------------------------
+驱动：com.mysql.jdbc.Driver
+URL：jdbc:mysql://machine_name:port/dbname
+注：machine_name：数据库所在的机器的名称；
+      port：端口号，默认3306 
+Mysql的url地址的简写形式： jdbc:mysql:///dbname   
+
+---------------------------SQL Server----------------------------
+驱动：com.microsoft.jdbc.sqlserver.SQLServerDriver
+URL：jdbc:microsoft:sqlserver://machine_name:port;DatabaseName=dbname
+注：machine_name：数据库所在的机器的名称；
+      port：端口号，默认是1433
+
+--------------------------DB2-------------------------------------
+驱动：com.ibm.db2.jdbc.app.DB2Driver
+URL：jdbc:db2://<machine_name><:port>/dbname
+注：machine_name：数据库所在的机器的名称；
+      port：端口号，默认是5000
+-------------------------------------------------------------------
+
+java.sql.*   和  javax.sql.*
+数据库的连接方式：
+    1）
+	Driver drive = new com.mysql.jdbc.Driver();
+	Connection conn = drive.connect(url, proper);
+
+    2） 
+	Driver drive = new com.mysql.jdbc.Driver();
+	DriverManager.registerDriver(drive);
+	Connection conn=DriverManager.getConnection(url, user, password);
+
+    3）
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection conn = DriverManager.getConnection(url, user, password);
+
+============================== 常用的数据类型转换表 =====================================
+SQL类型	    		  Jdbc对应方法	      返回类型
+BIT(1) 	    		   getBoolean 	       Boolean
+bit(n)	   		   getBytes()	       byte[]
+TINYINT	   		   getByte()	       Byte
+SMALLINT    		   getShort()	       Short
+Int	     		   getInt()	       Int
+BIGINT	    		   getLong()	       Long
+CHAR,VARCHAR,LONGVARCHAR   getString()	       String
+Text(clob)  Blob	   getClob getBlob()   Clob  Blob
+DATE		           getDate()           java.sql.Date
+TIME			   getTime()	       java.sql.Time
+TIMESTAMP	           getTimestamp()      java.sql.Timestamp
+
+==============================  核心API ====================================
+
+|- Driver接口： 表示java驱动程序接口。所有的具体的数据库厂商要来实现此接口。
+	- connect(url, properties):  连接数据库的方法。
+		url: 连接数据库的URL 
+		URL语法： jdbc协议:数据库子协议://主机:端口/数据库
+		user： 数据库的用户名
+		password： 数据库用户密码
+
+|- DriverManager类： 驱动管理器类，用于管理所有注册的驱动程序
+		-registerDriver(driver)  : 注册驱动类对象
+		-Connection getConnection(url,user,password);  获取连接对象
+
+	|- Connection接口： 表示java程序和数据库的连接对象。
+		- Statement createStatement() ： 创建Statement对象
+		- PreparedStatement prepareStatement(String sql)  创建PreparedStatement对象
+		- CallableStatement prepareCall(String sql) 创建CallableStatement对象
+
+	|- Statement接口： 用于执行静态的sql语句
+		- int executeUpdate(String sql)  ： 执行静态的更新sql语句（DDL，DML）
+		- ResultSet executeQuery(String sql)  ：执行的静态的查询sql语句（DQL）
+		- boolean execute(String sql)：用于向数据库发送任意sql语句
+		- void addBatch(String sql) ：把多条sql语句放到一个批处理中。
+		- int[] executeBatch()：向数据库发送一批sql语句执行。 
+
+		|-PreparedStatement接口：用于执行预编译sql语句
+			- int executeUpdate() ： 执行预编译的更新sql语句（DDL，DML）
+			- setxx() :    设置预编译的参数 ，参数位置  从1开始
+			- ResultSet executeQuery()  ： 执行预编译的查询sql语句（DQL）
+
+			|-CallableStatement接口：用于执行存储过程的sql语句（call xxx）
+				- ResultSet executeQuery()  ： 调用存储过程的方法
+				- registerOutParameter(index,java.sql.Types):注册输出参数
+				- getxx():获取存储过程中的输出参数
+
+	|- ResultSet接口：用于封装查询出来的数据
+		- boolean next() ： 将光标移动到下一行
+	    获取指定类型的数据：可以是索引值与列字段。
+		- getXX() : 获取列的值
+	    获取任意类型的数据：
+		- getObject(int index)
+		- getObject(string columnName)
+	    
+            对结果集进行滚动的方法：
+		- next()：移动到下一行
+		- previous()：移动到前一行
+		- absolute(int row)：移动到指定行
+		- beforeFirst()：移动resultSet的最前面。
+		- afterLast() ：移动到resultSet的最后面
+
+·使用PreparedStatement执行sql语句
+	String sql="INSERT INTO student(NAME,gender) VALUES(?,?)"; ?表示一个参数的占位符
+
+PreparedStatement VS Statment:
+	1）语法不同：PreparedStatement可以使用预编译的sql，而Statment只能使用静态的sql
+	2）效率不同： PreparedStatement可以使用sql缓存区，效率比Statment高
+	3）安全性不同： PreparedStatement可以有效防止sql注入，而Statment不能防止sql注入。
+ 		 SQL注入：name="rose245' or 1=1 -- "   注意：--与/**/是sql注释符
+
+·CallableStatement执行存储过程
+ 注意：
+	1.CALL pro_findById(?); //可以执行预编译的sql
+	2.所有调用存储过程的sql语句都是使用executeQuery方法执行
+	3.输出参数的存储过程，结果不是返回到结果集中，而是返回到输出参数中
+
+·执行批处理：
+	Statement.addBatch(sql)  list   发送多条不同的ＳＱＬ语句
+	
+	PreparedStatement.addBatch()  用于在同一个表中批量插入数据
+
+	executeBatch()方法：执行批处理命令
+
+	clearBatch()方法：清除批处理命令
+
+================================ 事务 ===================================================
+基本概念：
+   事务使指一组最小逻辑操作单元，里面有多个操作组成。 组成事务的每一部分必须要同时提交成功，
+	如果有一个操作失败，整个操作就回滚。
+	
+事务ACID特性：
+	·原子性（Atomicity）
+		原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。 
+	
+	·一致性（Consistency）
+		事务必须使数据库从一个一致性状态变换到另外一个一致性状态。
+	
+	·隔离性（Isolation）
+		事务的隔离性是多个用户并发访问数据库时，数据库为每一个用户开启的事务，
+		不能被其他事务的操作数据所干扰，多个并发事务之间要相互隔离。
+	
+	·持久性（Durability）
+		持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，
+		接下来即使数据库发生故障也不应该对其有任何影响
+
+核心API:
+|-- Connection
+	void setAutoCommit(boolean autoCommit)  设置事务是否自动提交,FALSE,则手动提交
+				
+	void commit()	手动提交事务
+	
+	void rollback()   回滚，出现异常时候，所有已执行成功的代码回退到事务开始前的状态
+	
+	Savepoint setSavepoint(String name) 创建一个(未命名)的保存点 ,并返回对象
+
+=========================  JDBC中大文本类型的处理 ======================================
+Oracle中大文本数据类型
+	Clob    长文本类型  
+	Blob    二进制类型
+
+MySQL数据库
+	Text    长文本类型
+	Blob    二进制类型

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<contactList>
+	<contact id="001">
+		<name>老李</name>
+		<age>19</age>
+		<tel>123456</tel>
+		<ad>jiangxi</ad>
+		<qq>55369</qq>
+		<email>14353@qq.com</email>
+	</contact>
+		<contact id="002">
+		<name>小白</name>
+		<age>20</age>
+		<tel>12345654</tel>
+		<ad>sasa</ad>
+		<qq>2453</qq>
+		<email>145445@qq.com</email>
+	</contact>
+	
+</contactList>

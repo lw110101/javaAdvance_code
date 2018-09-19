@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	
+	
+    <package name="test" extends="struts-default" namespace="/user">
+    
+    <!-- 配置全局跳转视图 -->
+    <global-results>
+    	<result name="success">/test.jsp</result>
+    </global-results>
+    
+    
+        <action name="test" class="c_action.TestAction" method="execute">
+          <!--  <result name="success">/test.jsp</result>   -->  
+        </action>
+        
+     <!--     <action name="user" class="c_action.UserAction" method="save">
+            <result name="save">/test.jsp</result>
+        </action>
+       
+        <action name="register" class="c_action.UserAction" method="register">
+            <result name="register">/test.jsp</result>
+        </action>
+       --> 
+       
+        <action name="user_*" class="c_action.UserAction" method="{1}">
+            <result name="{1}">/test.jsp</result>
+        </action>
+        <!-- 动态方法调用 -->
+        <action name="user_*" class="c_action.UserAction" >
+            <result name="login">/test.jsp</result>
+        </action>
+        
+        
+    </package>
+</struts>

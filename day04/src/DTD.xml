@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 外部本地文件导入 -->
+<!DOCTYPE person SYSTEM "test.dtd">
+<!-- 内部导入 
+	<!DOCTYPE person [
+	<!ELEMENT person (student,teacher,worker+,boy,girl,body+,bodys?)>
+	<!ELEMENT student >
+	]
+-->
+<personList>
+	<person id="110">
+		<student name="张三">学生<ABC></ABC></student>
+		<teacher age="20">老师</teacher>
+		<worker salary="a">工人</worker>
+		<worker salary="b">工人</worker>
+		<boy>男孩</boy>
+		<girl>女孩</girl>
+		<body></body>
+		<body></body>
+	</person>
+</personList>

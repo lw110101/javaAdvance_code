@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	
+	
+    <package name="data" extends="struts-default" namespace="/data">
+    
+    <!-- 配置全局跳转视图 -->
+    <global-results>
+    	<result name="success">/data.jsp</result>
+    </global-results>
+    <!-- 普通数据处理的action -->
+    <action name="data_*" class="d_data.DataAction" method="{1}">
+    	
+    </action>
+
+		<!--日期类的数据处理配置  -->
+	<action name="register_*" class="d_data.RegisterAction" method="{1}">
+		<result name="{1}">/hello.jsp</result>
+	</action>    
+        
+    </package>
+</struts>

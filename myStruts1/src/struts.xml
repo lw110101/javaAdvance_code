@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<!-- 全局配置 -->
+	<!-- HelloAction的配置 -->
+    <include file="/a_hello/hello.xml"></include>
+    
+	<include file="/c_action/constant.xml"></include>
+    <!--  UserAction的配置 -->
+    <include file="/b_login/login.xml"></include>
+    
+    <include file="/c_action/test.xml"></include>
+    
+    <include file="/d_data/data.xml"></include>
+    
+    <include file="/e_file/fileUp.xml"></include>
+</struts>

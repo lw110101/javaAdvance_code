@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<personList> 
+  <person id="001"> 
+    <name>老李</name> 
+    <gender>nan</gender>   
+    <age>19</age>  
+    <tel>123456</tel>  
+    
+    <qq>55369</qq>  
+    <email>14353@qq.com</email> 
+  </person>  
+  <person id="002"> 
+    <name>小白</name>  
+    <age>20</age>  
+    <gender>nan</gender> 
+    <tel>12345654</tel>  
+     
+    <qq>2453</qq>  
+    <email>145445@qq.com</email> 
+  </person> 
+</personList>

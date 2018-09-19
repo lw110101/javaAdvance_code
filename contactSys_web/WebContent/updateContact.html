@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>修改联系人</title>
+</head>
+<link href="./contact.css" rel="stylesheet" />
+<style type="text/css">
+table {
+	width: 270px;
+	position: absolute;
+	left: 650px;
+}
+</style>
+<body>
+	<h3>修改联系人</h3>
+	<form action="查看所有联系人.html" method="post">
+		<table border="1">
+			<tr>
+				<th>姓名</th>
+				<td><input type="text" name="name" /></td>
+			</tr>
+			<tr>
+				<th>性别</th>
+				<td><input type="radio" name="gender" value="男" />男 <input
+					type="radio" name="gender" value="女" checked="checked">女</td>
+			</tr>
+			<tr>
+				<th>年龄</th>
+				<td><input type="text" name="age" /></td>
+			</tr>
+			<tr>
+				<th>电话</th>
+				<td><input type="text" name="phone" /></td>
+			</tr>
+			<tr>
+				<th>QQ</th>
+				<td><input type="text" name="qq" /></td>
+			</tr>
+			<tr>
+				<th>邮箱</th>
+				<td><input type="text" name="email" /></td>
+			</tr>
+			<tr>
+				<th>地址</th>
+				<td><input type="text" name="ad" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" value="保存" /><input
+					type="reset" value="重置" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

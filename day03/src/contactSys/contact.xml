@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<contactList> 
+  <contact id="001"> 
+    <name>张三</name>  
+    <gender>男</gender>  
+    <age>20</age>  
+    <email>111111@qq.com</email>  
+    <qq>111111</qq>  
+    <phone>123456</phone>  
+    <ad>南昌</ad> 
+  </contact>  
+  <contact id="002"> 
+    <name>陈七</name>  
+    <gender>女</gender>  
+    <age>23</age>  
+    <email>22223@qq.com</email>  
+    <qq>222223</qq>  
+    <phone>13456</phone>  
+    <ad>赣州</ad> 
+  </contact>  
+  <contact id="003">
+    <name>李四</name>
+    <gender>男</gender>
+    <age>30</age>
+    <email>12144354@qq.com</email>
+    <qq>4545545</qq>
+    <phone>123456</phone>
+    <ad>广州</ad>
+  </contact>
+</contactList>

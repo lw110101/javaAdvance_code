@@ -1,0 +1,8 @@
+@charset "UTF-8";
+/*合并表格的边框*/
+	table{
+		border-collapse:collapse;
+	}
+	h3{
+		text-align:center;
+	}

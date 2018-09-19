@@ -1,0 +1,11 @@
+
+<!ELEMENT body EMPTY>  
+<!ELEMENT student ANY> 
+<!ELEMENT teacher (#PCDATA)> 
+<!ELEMENT person (student,teacher,worker+,boy,girl,body+,bodys?)>
+
+<!ATTLIST worker count CDATA "5">
+<!ATTLIST person id CDATA #IMPLIED>
+<!ATTLIST student name (张三|李四|..) #REQUIRED>
+<!ATTLIST teacher age CDATA #FIXED "20">
+<!ATTLIST worker salary ID "a">

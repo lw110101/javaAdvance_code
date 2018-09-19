@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<personList>
+  <person id="110">
+    <姓名>as</姓名>
+    <性别>as</性别>
+    <年龄>212</年龄>
+    <电话>2122</电话>
+    <qq>212</qq>
+    <email>212</email>
+  </person>
+</personList>

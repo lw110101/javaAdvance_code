@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	
+    <package name="file" extends="struts-default">
+    	<action name="file_*" class="e_file.FileUpAction" method="{1}">
+    		<result name="{1}">/fileLoad/success.jsp</result>
+    	<!-- 配置错误视图 -->
+    		<result name="input">/fileLoad/error.jsp</result>
+    		<!-- 限制文件上传的扩展名 -->
+    		<interceptor-ref name="defaultStack" >
+    			<param name="fileUpload.allowedExtensions" >txt,doc</param>
+    			
+    		</interceptor-ref>
+    	</action>
+    	
+    	<!-- 配置文件下载的action -->
+    	<action name="down_*" class="e_file.DownAction" method="{1}">
+    		<!-- 列表展示 -->
+    		<result name="list">/fileLoad/listFile.jsp</result>
+    		<!-- 文件下载 -->
+    		<result name="down" type="stream" >
+    			<!-- 允许下载的文件类型为二进制 -->
+    			<param name="contentType">application/octet-stream</param>
+    			<!-- 对应action的属性 -->
+	   			<param name="inputName">attrInputStream</param>
+	   			<!-- 下载头浏览器显示的文件名 -->
+	  			<param name="contentDisposition">attachment;filename=${downFileName}</param>
+	  			<!-- 缓冲区大小 -->
+	  			<param name="bufferSize">1024</param>
+    		</result>
+    	</action>
+    	
+    
+    </package>
+</struts>
